@@ -9,8 +9,8 @@ import joblib
 st.set_page_config(page_title="Hydrazine Tank Digital Twin", layout="wide")
 st.title("🚀 Hydrazine Tank Pressure Digital Twin")
 
-scaler_X = joblib.load("C:\python\hydrazine tank pressure due to RTA and decomposition\scaler_X.save")
-scaler_y = joblib.load("C:\python\hydrazine tank pressure due to RTA and decomposition\scaler_y.save")
+scaler_X = joblib.load("scaler_X.save")
+scaler_y = joblib.load("scaler_y.save")
 
 class PressureLSTM(nn.Module):
     def __init__(self, input_size):
@@ -51,11 +51,11 @@ class PINN(nn.Module):
         return self.net(t)
 
 lstm_model = PressureLSTM(input_size=5)
-lstm_model.load_state_dict(torch.load("C:\python\hydrazine tank pressure due to RTA and decomposition\lstm_model.pth", map_location="cpu"))
+lstm_model.load_state_dict(torch.load("lstm_model.pth", map_location="cpu"))
 lstm_model.eval()
 
 pinn_model = PINN()
-pinn_model.load_state_dict(torch.load("hydrazine tank pressure due to RTA and decomposition/pinn_model.pth", map_location="cpu"))
+pinn_model.load_state_dict(torch.load("pinn_model.pth", map_location="cpu"))
 pinn_model.eval()
 
 st.sidebar.header("⚙️ Input Parameters")
@@ -183,4 +183,5 @@ if simulate_btn:
         st.warning("⚠ Approaching Pressure Limit")
 
     if np.any(T > 800):
+
         st.error("🔥 Thermal Runaway!")
