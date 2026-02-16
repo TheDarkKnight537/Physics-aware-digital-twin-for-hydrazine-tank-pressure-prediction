@@ -165,10 +165,10 @@ if simulate_btn:
 
     with col2:
         fig2, ax2 = plt.subplots()
-        ax2.plot(t, P_true/1e5, label="True")
-        ax2.plot(t, P_sensor/1e5, '--', label="Sensor")
-        ax2.plot(t, P_ml/1e5, ':', label="LSTM")
-        ax2.plot(t, P_pinn/1e5, '-.', label="PINN")
+        ax2.plot(t, P_true/1e5, label="True", linewidth=2)
+        ax2.plot(t, P_sensor/1e5, '--', label="Sensor", alpha=0.3)
+        ax2.plot(t, P_ml/1e5, ':', label="LSTM", linewidth=3)
+        ax2.plot(t, P_pinn/1e5, '-.', label="PINN", linewidth=3)
         ax2.legend()
         ax2.set_title("💨 Pressure Comparison")
         ax2.set_xlabel("Time (s)")
@@ -185,3 +185,4 @@ if simulate_btn:
     if np.any(T > 800):
 
         st.error("🔥 Thermal Runaway!")
+
